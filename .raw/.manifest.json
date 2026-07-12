@@ -2,7 +2,30 @@
   "version": 1,
   "created": "2026-04-23",
   "description": "Ingest delta tracker and address map for the claude-obsidian vault. Do not hand-edit; wiki-ingest maintains this.",
-  "sources": {},
+  "sources": {
+    ".raw/claude-obsidian-ecosystem-research.md": {
+      "hash": "72c6e8270fbb6c2719f36a9c50c86d19",
+      "ingested_at": "2026-04-08",
+      "reconciled_at": "2026-07-12",
+      "note": "Ingested pre-manifest (2026-04-08); record backfilled 2026-07-12 after verifying all derived pages exist.",
+      "pages_created": [
+        "wiki/sources/claude-obsidian-ecosystem-research.md",
+        "wiki/comparisons/claude-obsidian-ecosystem.md",
+        "wiki/concepts/cherry-picks.md",
+        "wiki/entities/Ar9av-obsidian-wiki.md",
+        "wiki/entities/Nexus-claudesidian-mcp.md",
+        "wiki/entities/ballred-obsidian-claude-pkm.md",
+        "wiki/entities/rvk7895-llm-knowledge-bases.md",
+        "wiki/entities/kepano-obsidian-skills.md",
+        "wiki/entities/Claudian-YishenTu.md"
+      ],
+      "pages_updated": [
+        "wiki/index.md",
+        "wiki/log.md",
+        "wiki/hot.md"
+      ]
+    }
+  },
   "address_map": {
     "wiki/concepts/DragonScale Memory.md": "c-000001"
   }

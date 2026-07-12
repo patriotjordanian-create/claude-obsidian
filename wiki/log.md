@@ -25,6 +25,13 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-12] ingest | Claude + Obsidian Ecosystem Research (manifest reconcile)
+- Source: `.raw/claude-obsidian-ecosystem-research.md` (md5 `72c6e827…`)
+- Summary: [[claude-obsidian-ecosystem-research]]
+- Pages created: none (source was fully ingested 2026-04-08, pre-manifest; all 8 derived pages verified present: [[claude-obsidian-ecosystem]], [[cherry-picks]], [[Ar9av-obsidian-wiki]], [[Nexus-claudesidian-mcp]], [[ballred-obsidian-claude-pkm]], [[rvk7895-llm-knowledge-bases]], [[kepano-obsidian-skills]], [[Claudian-YishenTu]])
+- Pages updated: `wiki/hot.md`, this log; `.raw/.manifest.json` gained its first `sources` entry
+- Key insight: delta tracking now covers the vault's only raw source, so future "ingest" calls skip it unless the file changes or the user forces re-ingest. Transport detected as filesystem in this remote container (`.vault-meta/transport.json` created on first run).
+
 ## [2026-04-24] save | v1.6.0 public release notes (Teams, Karpathy-style)
 - Type: release doc + visual assets
 - Locations (new): `docs/releases/v1.6.0.md` (346 lines, 6 sections, Karpathy-style prose), `wiki/meta/dragonscale-mechanism-overview.svg` (4-mechanism diagram with shared .vault-meta/ gate), `wiki/meta/dragonscale-6-test-flow.svg` (validation timeline), `wiki/meta/dragonscale-frontier-graph.svg` (M4 candidate + 3 filed pages)
