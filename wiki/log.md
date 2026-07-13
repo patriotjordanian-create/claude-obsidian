@@ -25,6 +25,13 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-07-12] lint | Full health check (first since v1.6.0 validation)
+- Report: `wiki/meta/lint-report-2026-07-12.md`
+- Scope: 49 pages; orphans, dead links, frontmatter, addresses, stale claims. Tiling skipped (no ollama in container).
+- Errors: 5 post-rollout pages missing `address:` (3 concept pages from the 2026-04-24 autoresearch run + 2 references pages); 5 pages link `[[How does the LLM Wiki pattern work?]]` with a trailing `?` that the filename does not have
+- Notable: `wiki/index.md` counts stale (says 34 pages / 2 sources; actual 49 / 1); ecosystem pages reflect the April v1.2.0 snapshot while the plugin is at v1.9.2
+- Auto-fixed: nothing (lint observes only; fix list awaits user approval)
+
 ## [2026-07-12] ingest | Claude + Obsidian Ecosystem Research (manifest reconcile)
 - Source: `.raw/claude-obsidian-ecosystem-research.md` (md5 `72c6e827…`)
 - Summary: [[claude-obsidian-ecosystem-research]]
