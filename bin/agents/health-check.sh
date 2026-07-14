@@ -23,7 +23,7 @@ else
   say FAIL "ingest manifest missing or corrupt (.raw/.manifest.json)"; FAIL=1
 fi
 
-LOCKS=$(find .vault-meta/locks -type f 2>/dev/null | wc -l | tr -d ' ')
+LOCKS=$(find .vault-meta/locks -type f ! -name '.gitkeep' 2>/dev/null | wc -l | tr -d ' ')
 if [ "$LOCKS" -eq 0 ]; then
   say OK "no lingering wiki-locks"
 else
