@@ -19,6 +19,10 @@ mkdir -p "$VAULT/wiki/concepts" "$VAULT/wiki/entities" "$VAULT/wiki/sources" "$V
 mkdir -p "$VAULT/_templates"
 
 # ── 2. Write graph.json ───────────────────────────────────────────────────────
+# Only seed configs that don't exist yet; never downgrade a configured vault.
+if [ -f "$OBSIDIAN/graph.json" ]; then
+  echo "✓ graph.json already present (left untouched)"
+else
 cat > "$OBSIDIAN/graph.json" << 'EOF'
 {
   "collapse-filter": false,
@@ -46,8 +50,12 @@ cat > "$OBSIDIAN/graph.json" << 'EOF'
   "scale": 1.0
 }
 EOF
+fi
 
 # ── 3. Write app.json (excluded files) ───────────────────────────────────────
+if [ -f "$OBSIDIAN/app.json" ]; then
+  echo "✓ app.json already present (left untouched)"
+else
 cat > "$OBSIDIAN/app.json" << 'EOF'
 {
   "userIgnoreFilters": [
@@ -63,8 +71,12 @@ cat > "$OBSIDIAN/app.json" << 'EOF'
   ]
 }
 EOF
+fi
 
 # ── 4. Write appearance.json (enable CSS snippets) ───────────────────────────
+if [ -f "$OBSIDIAN/appearance.json" ]; then
+  echo "✓ appearance.json already present (left untouched)"
+else
 cat > "$OBSIDIAN/appearance.json" << 'EOF'
 {
   "enabledCssSnippets": [
@@ -74,6 +86,7 @@ cat > "$OBSIDIAN/appearance.json" << 'EOF'
   ]
 }
 EOF
+fi
 
 # ── 5. Download Excalidraw main.js (8MB, not in git) ─────────────────────────
 EXCALIDRAW="$OBSIDIAN/plugins/obsidian-excalidraw-plugin"
@@ -82,7 +95,14 @@ if [ -f "$EXCALIDRAW/manifest.json" ] && [ ! -f "$EXCALIDRAW/main.js" ]; then
   curl -sS -L \
     "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/latest/download/main.js" \
     -o "$EXCALIDRAW/main.js"
-  echo "✓ Excalidraw main.js downloaded"
+  # Sanity check: a real main.js is megabytes; a tiny file is a proxy/CDN
+  # error page and would block both Obsidian and future re-downloads.
+  if [ "$(wc -c < "$EXCALIDRAW/main.js")" -lt 100000 ]; then
+    rm -f "$EXCALIDRAW/main.js"
+    echo "✗ Excalidraw download failed (blocked network?); removed partial file. Re-run when online."
+  else
+    echo "✓ Excalidraw main.js downloaded"
+  fi
 elif [ -f "$EXCALIDRAW/main.js" ]; then
   echo "✓ Excalidraw main.js already present"
 fi
