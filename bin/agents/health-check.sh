@@ -5,12 +5,16 @@
 # plugin test suite if make is available. Exit nonzero on hard failures.
 # The judgment half (orphans, stale claims, dead links) is /wiki-lint in a
 # Claude session; this script catches breakage between sessions.
-# Usage: bash bin/agents/health-check.sh   (cron-safe, no arguments)
+# Usage: bash bin/agents/health-check.sh [--dry-run]
+#   --dry-run: report only; skip the one side effect (clearing stale locks)
 
 set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VAULT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 cd "$VAULT"
+
+DRY_RUN=0
+[ "${1:-}" = "--dry-run" ] && DRY_RUN=1
 
 FAIL=0
 say() { printf '%s %s\n' "$1" "$2"; }
@@ -27,8 +31,12 @@ LOCKS=$(find .vault-meta/locks -type f ! -name '.gitkeep' 2>/dev/null | wc -l | 
 if [ "$LOCKS" -eq 0 ]; then
   say OK "no lingering wiki-locks"
 else
-  say WARN "$LOCKS lock file(s) present; clearing stale ones"
-  bash scripts/wiki-lock.sh clear-stale >/dev/null 2>&1 || true
+  if [ "$DRY_RUN" -eq 1 ]; then
+    say WARN "$LOCKS lock file(s) present; would clear stale ones (dry run)"
+  else
+    say WARN "$LOCKS lock file(s) present; clearing stale ones"
+    bash scripts/wiki-lock.sh clear-stale >/dev/null 2>&1 || true
+  fi
 fi
 
 if [ -x scripts/allocate-address.sh ]; then
