@@ -1,0 +1,6 @@
+{
+  "env": {
+    "OBSIDIAN_VAULT_PATH": "/home/user/claude-obsidian",
+    "OBSIDIAN_BG_AGENT_ENABLED": "1"
+  }
+}
